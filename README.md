@@ -1,12 +1,30 @@
 # ESP32 Sensor Data Sender
 
-This is a sample project to demostrate data upload flow from an imaging sensor end device using ESP32 to a cloud server.
+This is a sample project to demonstrate data upload flow from an imaging sensor end device using ESP32 to a cloud server.
 
-# Assumption
+This sample does build successfully with idf - but still is just a mock coding exercise, do not expect it to work on actual target without further coding and debugging.
 
-Here are some of the assumptions made:
+# Assumptions
 
-- The code does not deal data acquisition from actual sensor. The data is asssumed to be a binary blob that will be sent to a server a long with some metadata about the sensor.
+Here are some of the assumptions made for the project:
+
+- On platform
+  - This sample is targeted for ESP32 and the code utilizes its APIs/libraries for various tasks
+  - The ESP32-IDF is running freeRTOS
+
+- On Network Connectivity
+  - Network connectivity is via a WiFi Router
+  - The AP's credential is known beforehand and hardcoded.
+
+- On Data Source
+  - The sample code does not deal data acquisition from actual sensor.
+  - The data is asssumed to be a certain fixed size binary blob that will be sent to a server along with some metadata about the sensor.
+  - Data is acquired and send at periodic interval
+
+- On Data Destination
+  - An imaginative HTTP server is assumed to exist and provide REST API to POST the data to.
+  - The URL, path, and message schema is known (and hardcoded). Refer to the code comments for further assumption made about the
+    message format.
 
 # Contents
 
@@ -22,15 +40,17 @@ Below is short explanation of remaining files in the project folder.
 ├── CMakeLists.txt
 ├── main
 │   ├── CMakeLists.txt
-│   └── main.c                 main entry point
+│   └── wifi_connect.c         Provide Wifi initialization and connection
+│   └── sender.c               The data sender functions
+│   └── main.c                 Entry point to app_main()
 └── README.md                  This is the file you are currently reading
 ```
 
 # How to build
 
 The project utilizes the `esp-idf`(ESP IoT Development Framework) and its build system.
-The steps are listed here to quickly get the host system ready to build the sample.
-These steps assume the host system is an Ubuntu (or Debian-based) and this project is cloned at `~/esp/esp_sensor_data_sender`
+The steps are listed here as quick reference to get the host system ready to build the sample.
+These steps use Ubuntu (or Debian-based) host system and assume the project is cloned at `~/esp/esp_sensor_data_sender`
 
 1. Install essential build tools
 ```
