@@ -78,7 +78,7 @@ static size_t sensor_i2c_read(char *databuf, size_t buflen)
                           \"data\":%s}"
 
 /**
- * @brief a mock function to get the data to send in base64 encoded string buffer
+ * @brief a mock function to get the data to send in json format
  * @param databuf   output data buffer
  * @param buflen    size of the data buffer
  *
@@ -100,13 +100,14 @@ esp_err_t sensor_get_json_data(char *databuf, size_t buflen)
         ESP_LOGE(TAG, "Unable to read data");
         return ESP_FAIL;
     }
-
+    /* Encode the data blob to a base64 string */
     int ret = mbedtls_base64_encode((unsigned char *) base64buf, sizeof(base64buf),
                                 &written, (unsigned char *) rawdata, rawlen);
     if (ret != 0) {
         ESP_LOGE(TAG, "Error in mbedtls encode! ret = -0x%x", -ret);
         return ESP_FAIL;
     }
+    /* Construct the json message */
     snprintf(databuf, buflen, DATA_FORMAT_STR, read_env_serial(), timestamp, "image", base64buf);
     return ESP_OK;
 }

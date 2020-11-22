@@ -21,11 +21,11 @@ static esp_err_t nvs_init(void)
 
 void app_main(void)
 {
-    /* initialize nvs partition on the system */
+    /* Initialize nvs partition on the system */
     ESP_ERROR_CHECK(nvs_init());
-    /* initialize TCP/IP stack */
+    /* Initialize TCP/IP stack */
     ESP_ERROR_CHECK(esp_netif_init());
-    /* create the event loop */
+    /* Create the event loop */
     ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     /* Start wifi and make connection (with hardcoded credential) */
