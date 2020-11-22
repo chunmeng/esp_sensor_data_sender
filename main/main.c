@@ -1,8 +1,11 @@
+#include "sender.h"
+#include "wifi_connect.h"
+
 #include "nvs_flash.h"
 #include "esp_event.h"
 #include "esp_netif.h"
-#include "wifi_connect.h"
 
+/* Hardcoded wifi credentials */
 static const char ssid[] = "Gateway-SSID";
 static const char passphrase[] = "TestPass!23";
 
@@ -22,4 +25,7 @@ void app_main(void)
 
     /* Start wifi and make connection (with hardcoded credential) */
     ESP_ERROR_CHECK(wifi_connect(ssid, passphrase));
+
+    /* Start the sender task */
+    sender_start();
 }

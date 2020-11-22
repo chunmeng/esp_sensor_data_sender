@@ -100,6 +100,7 @@ static void stop(void)
     s_wifi_netif = NULL;
 }
 
+/* External functions */
 esp_err_t wifi_connect(const char *ssid, const char *passwd)
 {
     if (s_connect_event_group != NULL) {
