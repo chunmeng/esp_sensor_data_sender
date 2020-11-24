@@ -130,7 +130,7 @@ esp_err_t http_event_handler(esp_http_client_event_t *evt)
  * @brief timeout handler
  *
  * At a periodic interval, this callback is invoked to make HTTP API to send the data to the server.
- * There's no buffering/queue mechanism what so ever - so when there's no connectivity, the data is
+ * There's no buffering/queue mechanism whatsoever - so when there's no connectivity, the data is
  * lost.
  */
 static void periodic_timer_callback(void* arg)
